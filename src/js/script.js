@@ -15,20 +15,18 @@
 
   };
 
-
-
   function render() {
-    const thisBook = this;
+    //const thisBook = this;
 
     for(let book of dataSource.books){
 
-      const generatedHTML = template.booksList(thisBook.date);
+      const generatedHTML = template.booksList(book);
 
-      thisBook.element = utils.createDOMFromHTML(generatedHTML);
+      book.element = utils.createDOMFromHTML(generatedHTML);
 
       const booksList = document.querySelector(select.containerOf.list);
 
-      booksList.appendChild(thisBook.element);
+      booksList.appendChild(book.element);
     }
 
   }

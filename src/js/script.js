@@ -41,10 +41,11 @@
     favoriteBooks.bookImage = document.querySelectorAll(select.book.image);
 
     for(let book of favoriteBooks.bookImage) {
-      book.addEventListener('dblclick', function(event){
 
-        event.preventDefault();
-        if(!book.classList.contains('favorite')) {
+      document.getElementById(select.containerOf.list).addEventListener('dblclick', function(event) {
+
+        event.target.preventDefault();
+        if(event.target && event.target.classList.contains('.book__image') && !book.classList.contains('favorite')) {
           book.classList.add('favorite');
 
           // get book id from data-id
@@ -62,7 +63,6 @@
       }
       });
     }
-
     console.log('image: ', favoriteBooks);
   }
 

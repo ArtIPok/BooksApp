@@ -120,21 +120,23 @@
         }
       };
 
-      for(let book of dataSource.books) {
         const idBook = book.id;
         console.log('id: ', idBook);
 
         const dataId = document.querySelector('.book__image[data-id="' + idBook + '"]');
 
-        if(shouldBeHidden = true) {
+        if(shouldBeHidden != true) {
 
           dataId.classList.add('hidden');
 
           console.log('div: ', dataId);
+        } else {
+
+          dataId.classList.remove('hidden');
+
         }
 
-        dataId.classList.remove('hidden');
-      };
+
     };
   };
 

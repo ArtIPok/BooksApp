@@ -10,6 +10,7 @@
     },
     book: {
       image: '.book__image',
+      id: '.book__image[data-id]',
     },
     filter: {
       name: '.filter',
@@ -45,10 +46,9 @@
 
   const form = document.querySelector('.filters');
 
-  const div = document.getElementsByName('type').getAttribute;
-
 
   console.log('form: ', form);
+
 
   function initActions(){
     favoriteBooks.bookImage = document.querySelectorAll(select.book.image);
@@ -70,40 +70,74 @@
         console.log('Filters after remove: ', filters);
       }
 
+      useFilters();
+
     })
-    // for(let book of favoriteBooks.bookImage) {
 
     document.querySelector(select.containerOf.list).addEventListener('dblclick', function(event) {
 
       event.preventDefault();
 
+      const book = event.target.closest('.book__image');
 
       // get book id from data-id
-      const id = event.target.getAttribute('data-id');
+      const id = book.getAttribute('data-id');
 
-      if(event.target && event.target.classList.contains('book__image') && !event.target.classList.contains('favorite')) {
-        event.target.classList.add('favorite');
+      console.log('id: ', id);
+
+      if(book && book.classList.contains('book__image') && !book.classList.contains('favorite')) {
+        book.classList.add('favorite');
 
 
         // add that id to favoriteBooks
         favoriteBooks.push(id);
 
       } else {
-        event.target.classList.remove('favorite');
+        book.classList.remove('favorite');
 
         // remove id from favoriteBooks
-        // console.log('Favorite list: ', favoriteBooks);
+        console.log('Favorite list before: ', favoriteBooks);
 
         const indexOfId = favoriteBooks.indexOf(id);
         favoriteBooks.splice(indexOfId, 1);
 
-        // console.log('Favorite list: ', favoriteBooks);
+        console.log('Favorite list after: ', favoriteBooks);
 
       }
     });
 
     console.log('image: ', favoriteBooks);
   }
+
+  function useFilters(){
+    for (let book of dataSource.books) {
+      let shouldBeHidden = false;
+
+      for(const filter of filters) {
+        if(!book.details[filter]) {
+          shouldBeHidden = true;
+          break;
+        }
+      };
+
+      for(let book of dataSource.books) {
+        const idBook = book.id;
+        console.log('id: ', idBook);
+
+        const dataId = document.querySelector('.book__image[data-id="' + idBook + '"]');
+
+        if(shouldBeHidden = true) {
+
+          dataId.classList.add('hidden');
+
+          console.log('div: ', dataId);
+        }
+
+        dataId.classList.remove('hidden');
+      };
+    };
+  };
+
 
   render();
 

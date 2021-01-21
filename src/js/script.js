@@ -40,6 +40,11 @@
       const booksList = document.querySelector(select.containerOf.list);
 
       booksList.appendChild(book.element);
+
+      const ratingBgc = determineRatingBgc(rating);
+
+      const ratingWidth = book.rating * 10;
+
     }
 
   }
@@ -120,26 +125,33 @@
         }
       };
 
-        const idBook = book.id;
-        console.log('id: ', idBook);
+      const idBook = book.id;
+      console.log('id: ', idBook);
+
+
+      if(shouldBeHidden != true) {
 
         const dataId = document.querySelector('.book__image[data-id="' + idBook + '"]');
 
-        if(shouldBeHidden != true) {
 
-          dataId.classList.add('hidden');
+        dataId.classList.add('hidden');
 
-          console.log('div: ', dataId);
-        } else {
+        console.log('div: ', dataId);
+      } else {
 
-          dataId.classList.remove('hidden');
+        const dataId = document.querySelector('.book__image[data-id="' + idBook + '"]');
 
-        }
+        dataId.classList.remove('hidden');
+      }
 
 
     };
   };
 
+  function determineRatingBgc(rating) {
+    //const ratingBooks = book.rating;
+    rating = document.querySelector('.book__rating__fill').getAttribute(style);
+  };
 
   render();
 

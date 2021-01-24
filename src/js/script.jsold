@@ -29,7 +29,6 @@
   const filters = [];
 
   function render() {
-    //const thisBook = this;
 
     for(let book of dataSource.books){
 
@@ -129,7 +128,7 @@
       console.log('id: ', idBook);
 
 
-      if(shouldBeHidden != true) {
+      if(shouldBeHidden) {
 
         const dataId = document.querySelector('.book__image[data-id="' + idBook + '"]');
 

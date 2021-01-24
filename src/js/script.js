@@ -32,9 +32,9 @@
 
       thisBookList.favoriteBooks = [];
 
-      thisBookList.initData();
-
       thisBookList.getElements();
+
+      thisBookList.initData();
 
       thisBookList.initActions();
 
@@ -55,9 +55,7 @@
 
         thisBookList.element = utils.createDOMFromHTML(generatedHTML);
 
-        const booksList = document.querySelector(select.containerOf.list);
-
-        booksList.appendChild(thisBookList.element);
+        thisBookList.booksList.appendChild(thisBookList.element);
       }
 
     }
@@ -65,22 +63,16 @@
     getElements(){
       const thisBookList = this;
 
-      //const hisBookListelement = document.querySelectorlAll(select.book.image);
+      thisBookList.booksList = document.querySelector(select.containerOf.list);
 
-      //thisBookList.element.booksList = thisBookList.document.querySelector(select.containerOf.list);
-
-    //  thisBookList.form = thisBookList.document.querySelector('.filters');
-
-    //  thisBookList.dataId = thisBookList.document.querySelector('.book__image[data-id="' + idBook + '"]');
-
+      thisBookList.form = document.querySelector('.filters');
 
     }
 
     initActions(){
       const thisBookList = this;
-      const form = document.querySelector('.filters');
 
-      form.addEventListener('click', function(event){
+      thisBookList.form.addEventListener('click', function(event){
 
         if(event.target.nodeName == 'INPUT' && event.target.type == 'checkbox' && event.target.checked) {
 
@@ -92,6 +84,7 @@
           thisBookList.filters.splice(indexOfChecked, 1);
 
         }
+        thisBookList.useFilters();
       });
 
       const list = document.querySelector(select.containerOf.list)
@@ -126,7 +119,7 @@
       const thisBookList = this;
 
       for (let book of this.data) {
-        let shouldBeHidden = true;
+        let shouldBeHidden = false;
 
         for(const filter of thisBookList.filters) {
           if(!book.details[filter]) {
@@ -137,14 +130,13 @@
 
         const idBook = book.id;
 
-        if(shouldBeHidden != true) {
-          const dataId = document.querySelector('.book__image[data-id="' + idBook + '"]');
+        const dataId = document.querySelector('.book__image[data-id="' + idBook + '"]');
+
+        if(shouldBeHidden) {
 
           dataId.classList.add('hidden');
 
         } else {
-          const dataId = document.querySelector('.book__image[data-id="' + idBook + '"]');
-
           dataId.classList.remove('hidden');
         }
       }

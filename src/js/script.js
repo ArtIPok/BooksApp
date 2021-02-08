@@ -34,6 +34,8 @@
 
       thisBookList.getElements();
 
+      thisBookList.render();
+
       thisBookList.initData();
 
       thisBookList.initActions();
@@ -69,6 +71,27 @@
 
     }
 
+    render() {
+      const thisBookList = this;
+
+        for(let book of dataSource.books){
+
+          const generatedHTML = template.booksList(book);
+
+          book.element = utils.createDOMFromHTML(generatedHTML);
+
+          const booksList = document.querySelector(select.containerOf.list);
+
+          booksList.appendChild(book.element);
+
+          book.ratingBgc = thisBookList.determineRatingBgc(book.rating);
+
+          //const ratingWidth = book.rating * 10;
+
+        }
+
+    }
+
     initActions(){
       const thisBookList = this;
 
@@ -87,7 +110,7 @@
         thisBookList.useFilters();
       });
 
-      const list = document.querySelector(select.containerOf.list)
+      const list = document.querySelector(select.containerOf.list);
       list.addEventListener('dblclick', function(event) {
 
         event.preventDefault();
@@ -142,14 +165,26 @@
       }
     }
 
-    determineRatingBgc(){
+    determineRatingBgc(rating){
       const thisBookList = this;
 
-      //const ratingBooks = book.rating;
-      //  rating = document.querySelector('.book__rating__fill').getAttribute(style);
-
+      let bgc = '';
+        if(rating < 6){
+          bgc = 'linear-gradient(to bottom,  #fefcea 0%, #f1da36 100%);';
+        }
+        if(rating > 6 && rating <= 8){
+          bgc = 'linear-gradient(to bottom, #b4df5b 0%,#b4df5b 100%);';
+        }
+        if(rating > 8 && rating <= 9){
+          bgc = 'linear-gradient(to bottom, #299a0b 0%, #299a0b 100%);';
+        }
+        if(rating > 9){
+          bgc = 'linear-gradient(to bottom, #ff0084 0%,#ff0084 100%);';
+        }
+      return bgc;
     }
 
   }
   const app = new BooksList();
+
 }
